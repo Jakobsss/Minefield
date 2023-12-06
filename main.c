@@ -39,12 +39,9 @@ int main(){
 		}                                                     //}
 
 
-		printf("\n");
-		do{                                                      //ADQUIRIR LOCAL DA MATRIZ{
+		printf("\n");                                                    //ADQUIRIR LOCAL DA MATRIZ{
 			printf("Digite a linha: (a - b - c - d)\n");
-			fflush(stdin);
-			scanf("%c", &charLinha);
-			getchar();
+			scanf(" %c", &charLinha);
 				switch(charLinha){
 				case 'a':
 					intLinha = 3;
@@ -59,9 +56,7 @@ int main(){
 					intLinha = 0;
 					break;
 				}
-		}while(intLinha < 0 || intLinha > 3);
 
-		do{
 			printf("Digite a coluna: (1 - 2 - 3 - 4)\n");
 			scanf("%i", &charColuna);
 				switch(charColuna){
@@ -78,7 +73,6 @@ int main(){
 					intColuna = 3;
 					break;
 				}
-		}while(intColuna < 0 || intColuna > 3);                           //}
 
 		if(bloco[intLinha][intColuna] != 1){
 			printf("Ufa! Não era uma bomba!\n\n");
