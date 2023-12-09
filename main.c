@@ -4,26 +4,33 @@
 #include <string.h>
 
 int main(){
-	int coluna = 1;																									//DECLARAÇÔES{
+	//Declarações
+	int coluna = 1;
 	char linha = 'd';
 	int bloco[4][4];
 	char tela[4][4] = {{'?', '?', '?', '?'}, {'?', '?', '?', '?'}, {'?', '?', '?', '?'}, {'?', '?', '?', '?'}};
 	int bomb;
 	char charLinha;
-	int intColuna, intLinha, charColuna;																			//}
+	int intColuna, intLinha, charColuna;
+	int blocosDescobertos, totalBlocosDescobertos;
+	blocosDescobertos = 0;
+	totalBlocosDescobertos = 0;
 
-
-	srand(time(NULL));                                                   //GERACAO DAS BOMBAS{
+	//Geração das bombas
+	srand(time(NULL));
 	for(int i = 0; i < 4; i++){
 		for(int j = 0; j < 4; j++){
 			bomb = rand() % 3 + 1;
 			if(bomb == 1){
 				bloco[i][j] = -1;
+			}else{
+				totalBlocosDescobertos++;
 			}
 		}
-	}                                                                    //}
+	}
 
-	for(int i = 0; i < 4; i++){																                    	//CHECAGEM DAS BOMBAS{
+	//Checagem das bombas
+	for(int i = 0; i < 4; i++){
 		for(int j = 0; j < 4; j++){
 			if(bloco[i][j] != -1){
 				if(i - 1 >= 0 && i - 1 < 4 && j >= 0 && j < 4 && bloco[i - 1][j] == -1){
@@ -52,12 +59,13 @@ int main(){
 				}
 			}
 		}
-	}																								               		//}
+	}
 
 	intLinha = -10;
 	intColuna = -10;
 
-	do{														              //GERACAO DA TELA{
+	//Geração da tela
+	do{
 
 		for(int i = 0; i < 4; i++){
 			printf("%c  ", linha);
@@ -78,10 +86,10 @@ int main(){
 		for(int i = 0; i < 4; i++){
 			printf("%i ", coluna);
 			coluna++;
-		}                                                                 //}
+		}
 
-
-		printf("\n");                                                      //ADQUIRIR LOCAL DA MATRIZ{
+		//Adquirir local da matriz
+		printf("\n");
 		do{
 			printf("Digite a linha: (a - b - c - d)\n");
 			scanf(" %c", &charLinha);
@@ -124,12 +132,21 @@ int main(){
 				}
 		}while(charColuna < 1 || charColuna > 4);								//}
 
+		if(bloco[intLinha][intColuna] != -1){
+			blocosDescobertos++;
+		}
+
 		coluna = 1;
 		linha = 'd';
 
-	}while(bloco[intLinha][intColuna] != -1);
+	}while(bloco[intLinha][intColuna] != -1 && totalBlocosDescobertos != blocosDescobertos);
 
-	printf("Que pena! Você perdeu :(");
+	//Checagem se ganhou ou perdeu
+	if(totalBlocosDescobertos == blocosDescobertos){
+		printf("Parabéns! Você venceu!");
+	}else{
+		printf("Que pena! Você perdeu :(");
+	}
 
 	return 0;
 }
